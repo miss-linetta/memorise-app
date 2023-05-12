@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import postRoutes from './routes/posts';
+import userRoutes from './routes/users';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
 const CONNECTION_URL:string = process.env.CONNECTION_URL as string;
 const PORT = process.env.PORT || 3000;
