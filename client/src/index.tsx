@@ -9,6 +9,8 @@ import { reducers } from './reducers';
 
 import App from './App';
 import thunk from 'redux-thunk';
+import PageLayout from './components/common/page-layout';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
@@ -16,7 +18,11 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <PageLayout>
+        <App />
+      </PageLayout>
+    </Provider>
+  </BrowserRouter>
 );
