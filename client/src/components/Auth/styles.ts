@@ -1,30 +1,24 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { SxProps, Theme } from "@mui/material";
 
-export default makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
+export const paper: SxProps<Theme> = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(2),
-  },
-  root: {
+};
+export const root: SxProps<Theme> = {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
     },
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  googleButton: {
-    marginBottom: theme.spacing(2),
-  },
-}));
+  };
+export const avatar: SxProps<Theme> = {
+   
+  };
+export const form: SxProps<Theme> = {
+    width: '100%',
+   
+  };
+export const submit: SxProps<Theme> = {
+    
+  };
+export const googleButton: SxProps<Theme> = {
+    
+  };

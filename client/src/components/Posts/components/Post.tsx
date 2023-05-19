@@ -1,6 +1,5 @@
-import React from 'react';
 import moment from 'moment';
-import useStyles from './styles';
+import * as styles from './styles';
 import {
   Button,
   Card,
@@ -8,16 +7,18 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from '@material-ui/core';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+  Box,
+  ButtonBase,
+} from '@mui/material';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import { useDispatch } from 'react-redux';
-import { deletePost, likePost } from '../../../actions/posts';
+import { deletePost } from '../../../actions/posts';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Post = ({ post, setPostId }: any) => {
-  const styles = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDelete = (e: any) => {
     e.preventDefault();
@@ -25,26 +26,25 @@ const Post = ({ post, setPostId }: any) => {
     dispatch(deletePost(post._id));
   };
 
-  const handleLike = (e: any) => {
-    e.preventDefault();
-
-    dispatch(likePost(post._id));
+  const openPost = () => {
+    navigate(`/posts/${post._id}`);
   };
 
   return (
-    <Card className={styles.card}>
+    <Card sx={styles.card}>
+      {/* <ButtonBase onClick={openPost} sx={styles.cardActions}> */}
       <CardMedia
-        className={styles.media}
+        sx={styles.media}
         image={post.selectedFile}
         title={post.title}
       />
-      <div className={styles.overlay}>
+      <Box component="div" sx={styles.overlay}>
         <Typography variant="h6">{post.creator}</Typography>
         <Typography variant="body2">
           {moment(post.creationDate).fromNow()}
         </Typography>
-      </div>
-      <div className={styles.overlay2}>
+      </Box>
+      <Box component="div" sx={styles.overlay2}>
         <Button
           style={{ color: 'white' }}
           size="small"
@@ -54,13 +54,13 @@ const Post = ({ post, setPostId }: any) => {
         >
           <MoreHorizRoundedIcon />
         </Button>
-      </div>
-      <div className={styles.details}>
+      </Box>
+      <Box component="div" sx={styles.details}>
         <Typography variant="body2" color="textSecondary">
           {post.tags.map((el: string) => `#${el} `)}
         </Typography>
-      </div>
-      <Typography className={styles.title} variant="h5" gutterBottom>
+      </Box>
+      <Typography sx={styles.title} variant="h5" gutterBottom>
         {post.title}
       </Typography>
       <CardContent>
@@ -68,10 +68,8 @@ const Post = ({ post, setPostId }: any) => {
           {post.message}
         </Typography>
       </CardContent>
-      <CardActions className={styles.cardActions}>
-        <Button size="small" color="primary" onClick={handleLike}>
-          <FavoriteBorderRoundedIcon fontSize="small" /> Like {post.likeCount}
-        </Button>
+      {/* </ButtonBase> */}
+      <CardActions sx={styles.cardActions}>
         <Button size="small" color="primary" onClick={handleDelete}>
           <DeleteOutlineRoundedIcon fontSize="small" /> Delete{' '}
         </Button>

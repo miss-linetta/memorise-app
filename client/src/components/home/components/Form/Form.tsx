@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import useStyles from './styles';
-import { Button, Paper, TextField, Typography } from '@material-ui/core';
+import * as styles from './styles';
+import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPost, updatePost } from '../../actions/posts';
+import { createPost, updatePost } from '../../../../actions/posts';
 
 const Form = ({ postId, setPostId }: any) => {
   const [postData, setPostData] = useState({
@@ -17,7 +17,6 @@ const Form = ({ postId, setPostId }: any) => {
     postId ? state.posts.find((el: any) => el._id === postId) : null
   );
 
-  const styles = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,13 +47,8 @@ const Form = ({ postId, setPostId }: any) => {
   };
 
   return (
-    <Paper className={styles.paper}>
-      <form
-        autoComplete="off"
-        noValidate
-        className={`${styles.root} ${styles.form}`}
-        onSubmit={handleSubmit}
-      >
+    <Paper sx={styles.paper}>
+      <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography variant="h6">
           {postId ? 'Editing' : 'Creating'} a Memory
         </Typography>
@@ -94,7 +88,7 @@ const Form = ({ postId, setPostId }: any) => {
           value={postData.tags}
           onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
         />
-        <div className={styles.fileInput}>
+        <Box component="div" sx={styles.fileInput}>
           <FileBase
             type="file"
             multiple={false}
@@ -102,20 +96,19 @@ const Form = ({ postId, setPostId }: any) => {
               setPostData({ ...postData, selectedFile: base64 })
             }
           />
-        </div>
+        </Box>
         <Button
-          className={styles.buttonSubmit}
           variant="contained"
-          color="primary"
           size="large"
           type="submit"
           fullWidth
+          sx={styles.submit}
         >
           Submit
         </Button>
         <Button
           variant="contained"
-          color="secondary"
+          sx={styles.clear}
           size="small"
           type="button"
           onClick={clear}

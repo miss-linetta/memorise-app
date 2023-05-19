@@ -1,6 +1,6 @@
-import { AppBar, Avatar, Toolbar, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import useStyles from './styles';
+import { AppBar, Avatar, Box, Toolbar, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import * as styles from './styles';
 import memory from '../../../assets/memory-icon.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -10,7 +10,6 @@ const Header = () => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem('profile') || '{}')
   );
-  const styles = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,41 +29,47 @@ const Header = () => {
   }, [location]);
 
   return (
-    <AppBar className={styles.appBar} position="static" color="inherit">
-      <div className={styles.brandContainer}>
+    <AppBar sx={styles.appBar} position="static" color="inherit">
+      <Box sx={styles.brandContainer}>
         <Typography component={Link} to="/" variant="h2" align="center">
           Memory
         </Typography>
-        <img className={styles.image} src={memory} alt="memeory" height="60" />
-      </div>
-      <Toolbar className={styles.toolbar}>
+        <Box
+          component="img"
+          sx={styles.image}
+          src={memory}
+          alt="memeory"
+          height="60"
+        />
+      </Box>
+      <Toolbar sx={styles.toolbar}>
         {user?.result ? (
-          <div className={styles.profile}>
+          <Box sx={styles.profile}>
             <Avatar
-              className={styles.purple}
+              sx={styles.purple}
               alt={user.result.given_name}
               src={user.result.picture}
             >
               {user?.result?.given_name?.charAt(0)}
             </Avatar>
-            <Typography className={styles.userName} variant="h6">
+            <Typography sx={styles.userName} variant="h6">
               {user.result.given_name}
             </Typography>
             <Button
               variant="contained"
-              className={styles.logout}
+              sx={styles.logout}
               color="secondary"
               onClick={logout}
             >
               Logout
             </Button>
-          </div>
+          </Box>
         ) : (
           <Button
             component={Link}
             to="/auth"
             variant="contained"
-            color="primary"
+            sx={styles.button}
           >
             Sign In
           </Button>

@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import postRoutes from './routes/posts';
-import userRoutes from './routes/users';
+import userRoutes from './routes/user';
 
 const app = express();
 
@@ -18,9 +18,9 @@ app.use('/user', userRoutes);
 const CONNECTION_URL:string = process.env.CONNECTION_URL as string;
 const PORT = process.env.PORT || 3000;
 
-async function start() {
+function start() {
   try {
-    await mongoose.connect(CONNECTION_URL);
+    mongoose.connect(CONNECTION_URL);
 
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
@@ -29,3 +29,5 @@ async function start() {
 }
 
 start();
+
+

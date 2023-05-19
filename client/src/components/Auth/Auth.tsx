@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useStyles from './styles';
+import * as styles from './styles';
 import {
   Avatar,
   Button,
@@ -27,7 +27,6 @@ const initialState = {
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const styles = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -75,12 +74,12 @@ const Auth = () => {
 
   return (
     <Container>
-      <Paper className={styles.paper} elevation={3}>
-        <Avatar className={styles.avatar}>
+      <Paper sx={styles.paper} elevation={3}>
+        <Avatar sx={styles.avatar}>
           <LockOutlined />
         </Avatar>
         <Typography variant="h5">{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={'styles.form'} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             {isSignup && (
               <>
@@ -130,7 +129,7 @@ const Auth = () => {
             fullWidth
             variant="contained"
             color="primary"
-            className={styles.submit}
+            sx={styles.submit}
           >
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>

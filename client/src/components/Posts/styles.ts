@@ -1,14 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { SxProps, Theme } from "@mui/material";
 
-export default makeStyles((theme: any) => ({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  smMargin: {
-    margin: theme.spacing(1),
-  },
-  actionDiv: {
-    textAlign: 'center',
-  },
-}));
+export const container: SxProps<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+};
+
+export const smMargin: SxProps<Theme> = {
+  // margin: theme.spacing(1),
+};
+
+export const actionDiv: SxProps<Theme> = {
+  textAlign: 'center',
+};
