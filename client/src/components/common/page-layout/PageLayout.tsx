@@ -4,15 +4,10 @@ import Header from '../Header/Header';
 interface PageLayoutProps {
   children?: ReactNode;
   hasHeader?: boolean;
-  //   hasFooter?: boolean;
   className?: string;
 }
 
-const PageLayout = ({
-  children,
-  hasHeader = true,
-}: //   hasFooter = true,
-PageLayoutProps) => {
+const PageLayout = ({ children, hasHeader = true }: PageLayoutProps) => {
   return (
     <>
       <header>
@@ -24,7 +19,6 @@ PageLayoutProps) => {
       <main>
         {hasHeader && <>{hasHeader && <Header />}</>}
         {children}
-        {/* {hasFooter && <Footer />} */}
       </main>
     </>
   );

@@ -2,15 +2,15 @@ import express from 'express';
 
 import { getPosts, getPostsBySearch, getPost, createPost, updatePost, deletePost } from '../controllers/posts';
 
-const router = express.Router();
+const postRoutes = express.Router();
 import auth from "../middleware/auth";
 
-router.get('/search', getPostsBySearch);
-router.get('/', getPosts);
-router.get('/:id', getPost);
+postRoutes.get('/search', getPostsBySearch);
+postRoutes.get('/', getPosts);
+postRoutes.get('/:id', getPost);
 
-router.post('/', auth, createPost);
-router.patch('/:id', auth, updatePost);
-router.delete('/:id', auth, deletePost);
+postRoutes.post('/', createPost);
+postRoutes.patch('/:id', updatePost);
+postRoutes.delete('/:id', deletePost);
 
-export default router;
+export default postRoutes;

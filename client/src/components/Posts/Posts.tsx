@@ -4,7 +4,7 @@ import * as styles from './styles';
 import { useSelector } from 'react-redux';
 import { CircularProgress, Grid } from '@mui/material';
 
-const Posts = ({ setPostId }: any) => {
+const Posts = ({ postId, setPostId }: any) => {
   const posts = useSelector((state: any) => state.posts);
 
   return !posts.length ? (

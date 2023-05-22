@@ -51,6 +51,10 @@ export const title: SxProps<Theme> = {
   padding: '0 16px',
 };
 
+export const content: SxProps<Theme> = {
+  padding: '0 16px',
+};
+
 export const cardActions: SxProps<Theme> = {
   padding: '0 16px 8px 16px',
   display: 'flex',

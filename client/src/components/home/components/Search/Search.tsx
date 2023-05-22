@@ -1,40 +1,23 @@
 import { AppBar, TextField, Button } from '@mui/material';
-import ChipInput from 'material-ui-chip-input';
 import { useState } from 'react';
 import * as styles from './styles';
 import { getPostsBySearch } from '../../../../actions/posts';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
   const [search, setSearch] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const query = useQuery();
-
-  const page = query.get('page') || 1;
-  const searchQuery = query.get('searchQuery');
-
-  const handleAdd = (tag: any) => setTags([...tags, tag]);
-
-  const handleDelete = (tagToDelete: any) =>
-    setTags(tags.filter((tag) => tag !== tagToDelete));
-
   const searchPost = () => {
     if (search.trim() || tags) {
-      dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-      navigate(
-        `/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`
-      );
+      dispatch(getPostsBySearch({ search, tags }));
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags}`);
     } else {
-      navigate('./');
+      navigate('/');
     }
   };
 
@@ -48,20 +31,15 @@ const Search = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <ChipInput
-        style={{ margin: '10px 0' }}
-        value={tags}
-        label="Search Tags"
+      <TextField
+        name="search"
         variant="outlined"
-        onAdd={handleAdd}
-        onDelete={handleDelete}
+        label="Search Tags"
+        fullWidth
+        value={tags}
+        onChange={(e) => setTags(e.target.value)}
       />
-      <Button
-        onClick={searchPost}
-        // className={styles.searchButton}
-        variant="contained"
-        color="primary"
-      >
+      <Button onClick={searchPost} variant="contained" color="primary">
         Search
       </Button>
     </AppBar>

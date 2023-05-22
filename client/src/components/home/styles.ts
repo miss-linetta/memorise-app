@@ -11,3 +11,15 @@ export const gridContainer: SxProps<Theme> = {
     //   flexDirection: 'column-reverse',
     // },
 };
+
+export const paper: SxProps<Theme> = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  borderRadius: 4,
+  marginBottom: '1rem',
+  padding: '16px',
+  backgroundColor: '#ffa319',
+  color: 'white',
+  textAlign: 'center'
+};

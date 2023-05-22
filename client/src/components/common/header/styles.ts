@@ -2,7 +2,7 @@ import { SxProps, Theme } from "@mui/material";
 
 export const appBar: SxProps<Theme> = {
   height: '100px',
-  borderRadius: 15,
+  borderRadius: 5,
   margin: '30px 0',
   display: 'flex',
   flexDirection: 'row',
@@ -12,10 +12,8 @@ export const appBar: SxProps<Theme> = {
   a: {
     textDecoration: 'none'
   },
-  header: {
-    '@media(maxWidth: 425px)' : {
-      flexDirection: 'column',
-    }
+  '@media(maxWidth: 425px)': {
+    flexDirection: 'column',
   },
 };
 
@@ -44,8 +42,10 @@ export const toolbar: SxProps<Theme> = {
 export const profile: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'space-between',
-  width: '400px',
-  alignItems: 'center', 
+  alignItems: 'center',
+  '@media(maxWidth: 425px)': {
+    flexDirection: 'column',
+  } 
 };
 
 export const logout: SxProps<Theme> = {
@@ -57,6 +57,7 @@ export const userName: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   textAlign: 'center',
+  paddingLeft: '10px',
 };
 
 export const brandContainer: SxProps<Theme> = {
@@ -65,5 +66,5 @@ export const brandContainer: SxProps<Theme> = {
 };
 
 export const purple: SxProps<Theme> = {
-    
+  // Add any specific styles for the 'purple' class if needed
 };

@@ -8,17 +8,16 @@ import {
   CardMedia,
   Typography,
   Box,
-  ButtonBase,
 } from '@mui/material';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import { useDispatch } from 'react-redux';
 import { deletePost } from '../../../actions/posts';
-import { Link, useNavigate } from 'react-router-dom';
 
 const Post = ({ post, setPostId }: any) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const user = localStorage.getItem('profile');
 
   const handleDelete = (e: any) => {
     e.preventDefault();
@@ -26,13 +25,8 @@ const Post = ({ post, setPostId }: any) => {
     dispatch(deletePost(post._id));
   };
 
-  const openPost = () => {
-    navigate(`/posts/${post._id}`);
-  };
-
   return (
     <Card sx={styles.card}>
-      {/* <ButtonBase onClick={openPost} sx={styles.cardActions}> */}
       <CardMedia
         sx={styles.media}
         image={post.selectedFile}
@@ -63,17 +57,18 @@ const Post = ({ post, setPostId }: any) => {
       <Typography sx={styles.title} variant="h5" gutterBottom>
         {post.title}
       </Typography>
-      <CardContent>
-        <Typography variant="h5" gutterBottom>
+      <CardContent sx={styles.content}>
+        <Typography variant="body2" gutterBottom>
           {post.message}
         </Typography>
       </CardContent>
-      {/* </ButtonBase> */}
-      <CardActions sx={styles.cardActions}>
-        <Button size="small" color="primary" onClick={handleDelete}>
-          <DeleteOutlineRoundedIcon fontSize="small" /> Delete{' '}
-        </Button>
-      </CardActions>
+      {user && (
+        <CardActions sx={styles.cardActions}>
+          <Button size="small" color="primary" onClick={handleDelete}>
+            <DeleteOutlineRoundedIcon fontSize="small" /> Delete{' '}
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 };

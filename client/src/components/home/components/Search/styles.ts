@@ -7,5 +7,8 @@ export const appBarSearch: SxProps<Theme> = {
     padding: '16px',
     button: {
         backgroundColor: '#ffa319'
+    },
+    div: {
+        marginBottom: '5px'
     }
 };

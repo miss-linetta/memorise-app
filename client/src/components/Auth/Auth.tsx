@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as styles from './styles';
 import {
   Avatar,
+  Box,
   Button,
   Container,
   Grid,
@@ -45,15 +46,15 @@ const Auth = () => {
   };
 
   const googleSuccess = async (res: any) => {
-    const decoded: { name: string; picture: string; sub: string } = jwtDecode(
-      res.credential
-    );
-    console.log(decoded);
+    const decoded: { name: string; picture: string; sub: string; jti: string } =
+      jwtDecode(res.credential);
 
-    const { name, picture, sub } = decoded;
+    const { name, picture, sub, jti } = decoded;
 
     const result = decoded;
-    const token = res.tokenId;
+    const token = decoded.jti;
+
+    console.log(token);
 
     try {
       dispatch({ type: 'AUTH', data: { result, token } });
@@ -75,75 +76,79 @@ const Auth = () => {
   return (
     <Container>
       <Paper sx={styles.paper} elevation={3}>
-        <Avatar sx={styles.avatar}>
+        <Avatar>
           <LockOutlined />
         </Avatar>
         <Typography variant="h5">{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
-        <form className={'styles.form'} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            {isSignup && (
-              <>
-                <Input
-                  name="firstName"
-                  label="First Name"
-                  handleChange={handleChange}
-                  autoFocus
-                  half
-                  type="text"
-                />
-                <Input
-                  name="lastName"
-                  label="Last Name"
-                  handleChange={handleChange}
-                  half
-                  type="text"
-                />
-              </>
-            )}
+        <Box sx={styles.form}>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              {isSignup && (
+                <>
+                  <Input
+                    name="firstName"
+                    label="First Name"
+                    handleChange={handleChange}
+                    autoFocus
+                    half
+                    type="text"
+                  />
+                  <Input
+                    name="lastName"
+                    label="Last Name"
+                    handleChange={handleChange}
+                    half
+                    type="text"
+                  />
+                </>
+              )}
 
-            <Input
-              name="email"
-              label="Email"
-              handleChange={handleChange}
-              autoFocus
-              type="email"
-            />
-            <Input
-              name="password"
-              label="Password"
-              handleChange={handleChange}
-              type="password"
-            />
-
-            {isSignup && (
               <Input
-                name="repeatPassword"
-                label="Repeat Password"
+                name="email"
+                label="Email"
+                handleChange={handleChange}
+                autoFocus
+                type="email"
+              />
+              <Input
+                name="password"
+                label="Password"
                 handleChange={handleChange}
                 type="password"
               />
-            )}
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={styles.submit}
-          >
-            {isSignup ? 'Sign Up' : 'Sign In'}
-          </Button>
-          <GoogleLogin onSuccess={googleSuccess} onError={googleError} />
-          <Grid container>
-            <Grid item>
-              <Button onClick={handleSwitch}>
-                {isSignup
-                  ? 'Already have an Account? Sign In'
-                  : 'Donʼt have an account? Sign Up'}
-              </Button>
+
+              {isSignup && (
+                <Input
+                  name="repeatPassword"
+                  label="Repeat Password"
+                  handleChange={handleChange}
+                  type="password"
+                />
+              )}
             </Grid>
-          </Grid>
-        </form>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={styles.submit}
+            >
+              {isSignup ? 'Sign Up' : 'Sign In'}
+            </Button>
+            <Box sx={styles.google}>
+              <GoogleLogin onSuccess={googleSuccess} onError={googleError} />
+            </Box>
+            <Grid container>
+              <Grid item>
+                <Button sx={styles.lastButton} onClick={handleSwitch}>
+                  {isSignup
+                    ? 'Already have an Account? Sign In'
+                    : 'Donʼt have an account? Sign Up'}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
       </Paper>
     </Container>
   );
